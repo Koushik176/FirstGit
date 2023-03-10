@@ -1,8 +1,10 @@
-var secondItem = document.querySelector
-('.list-group-item:nth-child(2)');
-secondItem.style.background = 'green';
+var items = document.querySelectorAll
+('.list-group-item');
+items[1].style.color = 'green';
 
-var thirdItem = document.querySelector
-('.list-group-item:nth-child(3)');
-thirdItem.style.visibility = 'hidden';
+var odd = document.querySelectorAll('li:nth-child(odd)');
 
+for(var i = 0; i < odd.length; i++)
+{
+    odd[i].style.backgroundColor = 'green';
+}
