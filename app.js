@@ -3,8 +3,8 @@
 // console.log(document.URL);
 // console.log(document.title);
 
-const items = document.getElementsByClassName('list-group-item');
-items[2].style.background = 'green';
+const items = document.getElementsByTagName('li');
+items[4].style.background = 'green';
 
 for(var i = 0; i < items.length; i++)
 {
