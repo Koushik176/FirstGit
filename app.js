@@ -1,12 +1,8 @@
-// EXAMINE THE DOCUMENT OBJECT //
-// console.log(document.domain);
-// console.log(document.URL);
-// console.log(document.title);
+var secondItem = document.querySelector
+('.list-group-item:nth-child(2)');
+secondItem.style.background = 'green';
 
-const items = document.getElementsByTagName('li');
-items[4].style.background = 'green';
+var thirdItem = document.querySelector
+('.list-group-item:nth-child(3)');
+thirdItem.style.visibility = 'hidden';
 
-for(var i = 0; i < items.length; i++)
-{
-    items[i].style.fontWeight = 'bold';
-}
