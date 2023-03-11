@@ -2,6 +2,17 @@ var form = document.getElementById('addForm');
 var itemList = document.getElementById('items');
 var filter = document.getElementById('filter');
 
+var newDiv = document.createElement('input');
+newDiv.className = 'form-control mr-2';
+newDiv.id = 'item-description';
+newDiv.setAttribute('type', 'text');
+
+var container = document.querySelector('#addForm');
+var type1 = document.querySelector('.btn');
+container.insertBefore(newDiv, type1);
+
+
+
 //form submit event
 form.addEventListener('submit', addItem);
 //delete event
@@ -15,13 +26,20 @@ function addItem(e){
     
     //get input value
     var newItem = document.getElementById('item').value;
+    var newItemDis = document.getElementById('item-description').value;
 
     //create new li element
-    var li = document.createElement('li');
+    var li = document.createElement('li'); 
     //add class Name
     li.className = 'list-group-item';
+    
     //add text Node with input value
     li.appendChild(document.createTextNode(newItem));
+    li.appendChild(document.createElement('br'));
+    li.appendChild(document.createTextNode(newItemDis));
+    
+    
+    
 
     // create del button element
 
@@ -65,7 +83,9 @@ function filterItems(e){
     // convert to arrays
     Array.from(items).forEach(function(item){
         var itemName = item.firstChild.textContent;
-        if(itemName.toLowerCase().indexOf(text) != -1){
+        var itemDes = item.childNodes[2].textContent;
+        if(itemName.toLowerCase().indexOf(text) != -1 ||
+        itemDes.toLowerCase().indexOf(text) != -1){
             item.style.display = 'block';
         }else{
             item.style.display = 'none';
