@@ -1,47 +1,74 @@
-var itemList = document.querySelector('#items');
-// parentNode
-// console.log(itemList.parentNode);
-// itemList.parentNode.style.backgroundColor = 'grey';
-// console.log(itemList.parentNode.parentNode.parentNode);
+var form = document.getElementById('addForm');
+var itemList = document.getElementById('items');
+var filter = document.getElementById('filter');
 
-//parentElement
-// console.log(itemList.parentElement);
-// itemList.parentElement.style.backgroundColor = 'grey';
-// console.log(itemList.parentElement.parentNode);
+//form submit event
+form.addEventListener('submit', addItem);
+//delete event
+itemList.addEventListener('click', removeItem);
+// filter event
+filter.addEventListener('keyup', filterItems);
 
-//childNode
-//console.log(itemList.childNodes);
+//additem
+function addItem(e){
+    e.preventDefault();
+    
+    //get input value
+    var newItem = document.getElementById('item').value;
 
-// console.log(itemList.children);
-// console.log(itemList.children[1]);
-// itemList.children[1].style.backgroundColor = 'yellow';
+    //create new li element
+    var li = document.createElement('li');
+    //add class Name
+    li.className = 'list-group-item';
+    //add text Node with input value
+    li.appendChild(document.createTextNode(newItem));
 
-//firstChild
-// console.log(itemList.firstChild);
-// console.log(itemList.firstElementChild);
-// itemList.firstElementChild.textContent = 'hello';
+    // create del button element
 
-// create a div
-var newDiv = document.createElement('div');
-newDiv.className = 'hello';
-newDiv.id = 'hello1';
-newDiv.setAttribute('title', 'Hello Div');
+    var deleteBtn = document.createElement('button');
 
-var newDivText = document.createTextNode('Hello World');
+    //add classes to deletBtn
+    deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
 
-newDiv.appendChild(newDivText);
+    //append Text Node
+    deleteBtn.appendChild(document.createTextNode('X'));
 
-var container = document.querySelector('header .container');
-var h1 = document.querySelector('header h1');
-newDiv.style.fontSize = '30px';
-container.insertBefore(newDiv, h1);
+    var editBtn = document.createElement('button');
+    editBtn.className = 'btn btn-grey btn-sm float-right edit';
+    editBtn.appendChild(document.createTextNode('edit'));
 
-var newDiv2 = document.createElement('div');
-var newDivText2 = document.createTextNode('Hello Wolrd');
+    //append button to li
+    li.appendChild(deleteBtn);
+    li.appendChild(editBtn);
 
-newDiv2.appendChild(newDivText2);
-var container2 = document.querySelector('.list-group');
-var h2 = document.querySelector('.list-group-item');
+    //append li to list
+    itemList.appendChild(li);
 
-container2.insertBefore(newDiv2, h2);
 
+}
+
+function removeItem(e){
+    if(e.target.classList.contains('delete')){
+        var li = e.target.parentElement;
+        if(confirm('Are you sure you want to delete ' +li.textContent)){
+            itemList.removeChild(li);
+        }
+    }
+}
+
+//filter items
+function filterItems(e){
+    //convert text to lowercase
+    var text = e.target.value.toLowerCase();
+    // get lis
+    var items = itemList.getElementsByTagName('li');
+    // convert to arrays
+    Array.from(items).forEach(function(item){
+        var itemName = item.firstChild.textContent;
+        if(itemName.toLowerCase().indexOf(text) != -1){
+            item.style.display = 'block';
+        }else{
+            item.style.display = 'none';
+        }
+    })
+}
